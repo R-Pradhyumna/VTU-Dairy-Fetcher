@@ -1,31 +1,38 @@
-# VTU Diary Data Extractor
+# VTU Diary Fetcher
 
-A browser-based script to extract, clean, and export internship diary entries from the VTU portal into a structured JSON format.
+A browser-based utility to extract, clean, and export internship diary entries from the VTU portal into a structured JSON format.
+
+Repository: https://github.com/R-Pradhyumna/VTU-Dairy-Fetcher.git
 
 ---
 
 ## Overview
 
-This project provides a simple and efficient way to retrieve internship diary data directly from the VTU student dashboard. It automates the process of fetching, processing, and exporting data, eliminating the need for manual copying.
+Maintaining a physical internship diary requires repeatedly opening each entry on the VTU portal and copying content manually. This project eliminates that process by fetching all entries at once and exporting them into a clean, structured format.
 
-The extracted data is cleaned, structured, and sorted, making it suitable for reports, analysis, or documentation.
+The output can be used for:
+
+- Writing physical diaries
+- Generating reports
+- Resume preparation
+- Personal tracking
 
 ---
 
 ## Features
 
-- No installation required
-- Runs entirely in the browser console
-- Automatically handles paginated API responses
-- Extracts only relevant fields:
+- Runs entirely in the browser
+- No installation or dependencies required
+- Handles paginated API responses automatically
+- Extracts:
   - Date
   - Hours
   - Work Summary (from description)
   - Learnings
 
-- Cleans and trims text content
-- Sorts data chronologically
-- Downloads output as a JSON file
+- Cleans and trims text data
+- Sorts entries chronologically
+- Downloads output as JSON
 
 ---
 
@@ -43,58 +50,53 @@ The extracted data is cleaned, structured, and sorted, making it suitable for re
 
 ---
 
-## How It Works
+## Installation
 
-The script interacts with the VTU internship diary API:
+No installation is required.
 
-```
-https://vtuapi.internyet.in/api/v1/student/internship-diaries
-```
+You only need:
 
-### Workflow
-
-1. Fetches diary entries page by page
-2. Extracts required fields from each entry
-3. Processes text fields:
-   - Removes empty lines
-   - Keeps only first two meaningful lines
-
-4. Aggregates all entries
-5. Sorts data by date (ascending)
-6. Generates and downloads a JSON file
+- A browser (Google Chrome recommended)
+- Access to your VTU student account
 
 ---
 
 ## Usage
 
-### Step 1: Open VTU Portal
+### Step 1: Open VTU Diary Page
 
-Navigate to:
-
+Go to:
 https://vtu.internyet.in/dashboard/student/diary-entries
 
-Ensure you are logged in.
+Make sure you are logged in.
 
 ---
 
 ### Step 2: Open Developer Console
 
-- Press `F12`
-- Go to the **Console** tab
+- Press F12
+- Navigate to the Console tab
 
 ---
 
-### Step 3: Execute Script
+### Step 3: Copy Script
 
-- Copy the contents of `fetchData.js`
-- Paste into the console
+- Open `fetchData.js` from this repository
+- Copy the entire file content
+
+---
+
+### Step 4: Execute Script
+
+- Paste the script into the browser console
 - Press Enter
 
 ---
 
-### Step 4: Download Output
+### Step 5: Download Output
 
 - The file `refined_diary.json` will be downloaded automatically
+- Wait until all pages are fetched before closing the tab
 
 ---
 
@@ -115,12 +117,21 @@ Example:
 
 ---
 
-## Key Implementation Details
+## How It Works
 
-- Uses `fetch` with `credentials: "include"` for authenticated requests
-- Handles pagination dynamically
-- Safely processes API response variations
-- Uses browser APIs (`Blob`, `URL.createObjectURL`) for file download
+The script calls the VTU API:
+
+https://vtuapi.internyet.in/api/v1/student/internship-diaries
+
+### Workflow
+
+1. Fetches data page by page
+2. Extracts relevant fields from each entry
+3. Cleans text by removing empty lines
+4. Keeps only the first two meaningful lines
+5. Aggregates all entries
+6. Sorts by date in ascending order
+7. Generates and downloads a JSON file
 
 ---
 
@@ -128,12 +139,20 @@ Example:
 
 - Requires active login session
 - Works only in browser environment
-- Dependent on VTU API structure and availability
+- Dependent on VTU API structure
 
 ---
 
 ## Security Considerations
 
-- Do not share session cookies or sensitive data
-- Use only on trusted devices
-- Intended for personal data extraction only
+- Do not share your session or cookies
+- Use on trusted systems only
+- Intended for personal data extraction
+
+---
+
+## Future Improvements
+
+- Generate print-ready diary formats (PDF/Word)
+- CLI version using Node.js
+- Chrome extension for one-click export
