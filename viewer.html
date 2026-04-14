@@ -50,7 +50,7 @@
         border: 1px solid black;
         padding: 8px;
         vertical-align: top;
-        word-wrap: break-word;
+        word-break: break-word;
       }
 
       th {
@@ -82,25 +82,12 @@
       /* Prevent row splitting */
       tr {
         page-break-inside: avoid;
-      }
-
-      /* Clamp text to 3 lines */
-      .clamp {
-        display: -webkit-box;
-        display: box; /* fallback */
-
-        -webkit-box-orient: vertical;
-        box-orient: vertical;
-
-        -webkit-line-clamp: 3; /* Chrome, Edge, Safari */
-        line-clamp: 3; /* Standard property */
-
-        overflow: hidden;
+        min-height: 110px;
       }
 
       /* Footer */
       .footer {
-        margin-top: 25px;
+        margin-top: 15px;
         display: flex;
         justify-content: space-between;
       }
@@ -148,9 +135,40 @@
     </button>
 
     <script>
-      function cleanText(text) {
+      // function formatText(text) {
+      //   if (!text) return "";
+
+      //   const cleaned = String(text)
+      //     .replace(/\n/g, " ")
+      //     .replace(/\s+/g, " ")
+      //     .trim();
+
+      //   // Split into sentences
+      //   const sentences = cleaned.split(/(?<=[.?!])\s+/);
+
+      //   // Take first 2 sentences
+      //   return sentences.slice(0, 2).join(" ");
+      // }
+
+      function formatText(text) {
         if (!text) return "";
-        return String(text).replace(/\n/g, " ").replace(/\s+/g, " ").trim();
+
+        const cleaned = String(text)
+          .replace(/\n/g, " ")
+          .replace(/\s+/g, " ")
+          .trim();
+
+        const sentences = cleaned.split(/(?<=[.?!])\s+/);
+
+        // Try 2 sentences
+        const two = sentences.slice(0, 2).join(" ");
+
+        // If too long → fallback to 1
+        if (two.length > 320) {
+          return sentences[0];
+        }
+
+        return two;
       }
 
       function chunk(arr, size) {
@@ -172,11 +190,11 @@
         const entries = data.map((e) => ({
           date: e.date,
           hours: e.hours,
-          work: cleanText(e.work_summary),
-          learning: cleanText(e.learnings),
+          work: formatText(e.work_summary),
+          learning: formatText(e.learnings),
         }));
 
-        const pages = chunk(entries, 3);
+        const pages = chunk(entries, 4);
 
         const html = pages
           .map(
@@ -199,8 +217,8 @@
           <tr>
             <td class="date">${entry.date}</td>
             <td class="hours">${entry.hours} hrs</td>
-            <td><div class="clamp">${entry.work}</div></td>
-            <td><div class="clamp">${entry.learning}</div></td>
+            <td>${entry.work}</td>
+            <td>${entry.learning}</td>
           </tr>
         `,
           )
