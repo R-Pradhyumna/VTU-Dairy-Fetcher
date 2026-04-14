@@ -2,7 +2,7 @@
 
 A browser-based tool to extract VTU internship diary entries and generate a clean, print-ready PDF in VTU format.
 
-Repository: [https://github.com/R-Pradhyumna/VTU-Dairy-Fetcher.git](https://github.com/R-Pradhyumna/VTU-Dairy-Fetcher.git)
+Repository: [https://github.com/R-Pradhyumna/VTU-Diary-Generator.git](https://github.com/R-Pradhyumna/VTU-Diary-Generator.git)
 
 ---
 
